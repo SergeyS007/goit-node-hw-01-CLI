@@ -18,7 +18,6 @@ async function getContactById(contactId) {
   try {
     const contacts = await listContacts();
     const contact = contacts.find((item) => item.id === contactId);
-    console.log(contact);
     if (!contact) {
       return null;
     }
@@ -36,7 +35,6 @@ async function removeContact(contactId) {
       return null;
     }
     const filteredContacts = contacts.filter((_, ind) => ind !== index);
-    console.log("fff ", filteredContacts);
     await fs.writeFile(contactsPath, JSON.stringify(filteredContacts));
     return contacts[index];
   } catch (error) {
@@ -48,10 +46,8 @@ async function addContact(name, email, phone) {
   try {
     const id = uuidv4();
     const data = { id: id, name, email, phone };
-    console.log(data);
     const contacts = await listContacts();
     contacts.push(data);
-    console.log(contacts);
     await fs.writeFile(contactsPath, JSON.stringify(contacts));
     return contacts;
   } catch (error) {
